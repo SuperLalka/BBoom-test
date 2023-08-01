@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block title %}
+<title>BBOOM | Список постов пользователя</title>
+{% endblock %}
+
+{% block content %}
+<div class="posts-block">
+    <ol class="posts-block__list">
+        {% for post in user_posts %}
+        <li class="posts-block__item">
+            <article class="post-item__block">
+                <div class="post-item__name">
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.body }}</p>
+                </div>
+            </article>
+        </li>
+        <hr>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

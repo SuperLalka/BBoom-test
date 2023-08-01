@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block title %}
+<title>BBOOM | Кабинет пользователя</title>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <form id="add-post-form">
+        {{ add_post_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function submitForm(e) {
+        e.preventDefault();
+
+        var user_token = "{{request.user.token}}";
+        var myform = document.getElementById("add-post-form");
+        var formData = new FormData(myform);
+
+        fetch("http://0.0.0.0:8000/api/posts/", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Authorization": "Token " + user_token
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('network returns error');
+                }
+                return response.json();
+            })
+            .then((resp) => {
+                let respdiv = document.createElement("pre");
+                respdiv.innerHTML = JSON.stringify(resp, null, 2);
+                myform.replaceWith(respdiv);
+                console.log("resp from server ", resp);
+            })
+            .catch((error) => {
+                console.log("error ", error);
+            });
+    }
+
+    var myform = document.getElementById("add-post-form");
+    myform.addEventListener("submit", submitForm);
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% load static %}
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>BBOOM test</title>
+
+</head>
+<body>
+  <header class="header">
+    <div class="header__block">
+      {% block header %}
+        <a href="{% url 'apis:users-user-cabinet' %}">Добавить новый пост</a>
+      {% endblock %}
+    </div>
+  </header>
+  <main class="main">
+    <div class="main__block">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </main>
+  <footer class="footer">
+
+  </footer>
+</body>
+</html>

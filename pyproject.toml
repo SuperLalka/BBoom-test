@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "bboom-test"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+packages = [{include = "bboom_test"}]
+repository = "https://github.com/SuperLalka/BBoom-test"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+poetry = "1.5.1"
+django = "4.2.3"
+djangorestframework = "3.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

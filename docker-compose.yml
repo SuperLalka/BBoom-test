@@ -1,0 +1,15 @@
+version: '3'
+
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    container_name: django
+    restart: always
+    volumes:
+      - ./bboom_test:/app
+    ports:
+      - "8000:8000"
+    command: /start
