@@ -2,29 +2,36 @@
 <html lang="en">
 <head>
 
-  {% load static %}
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <title>BBOOM test</title>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>BBOOM test</title>
 
 </head>
 <body>
-  <header class="header">
+{% if not user.is_authenticated %}
+{% include "login_form.html" %}
+{% else %}
+<header class="header">
+    {% block header %}
     <div class="header__block">
-      {% block header %}
         <a href="{% url 'apis:users-user-cabinet' %}">Добавить новый пост</a>
-      {% endblock %}
     </div>
-  </header>
-  <main class="main">
+    <div class="header__block">
+        <a href="{% url 'logout' %}">Разлогиниться</a>
+    </div>
+    {% endblock %}
+</header>
+<main class="main">
     <div class="main__block">
-      {% block content %}
+        {% block content %}
 
-      {% endblock %}
+        {% endblock %}
     </div>
-  </main>
-  <footer class="footer">
+</main>
+<footer class="footer">
 
-  </footer>
+</footer>
+{% endif %}
 </body>
 </html>

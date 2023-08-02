@@ -1,3 +1,4 @@
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +30,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'drf_yasg',
 ]
 
@@ -88,6 +89,8 @@ AUTHENTICATION_BACKENDS = [
     'users.backends.CustomModelBackend',
 ]
 
+AUTHENTICATION_COOKIE_NAME = "X-AUTH-TOKEN"
+
 # Auth user model
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-user-model
 
@@ -137,9 +140,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # REST FRAMEWORK
 # ------------------------------------------------------------------------------
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "users.backends.CustomJWTAuthentication",
+    ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
@@ -154,4 +157,14 @@ REST_FRAMEWORK = {
         'anon': '50/minute',
         'user': '1000/minute',
     }
+}
+
+# SIMPLE JWT
+# ------------------------------------------------------------------------------
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=30),
+    'ROTATE_REFRESH_TOKENS': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'TOKEN_OBTAIN_SERIALIZER': 'users.serializers.auth.CustomTokenObtainPairSerializer',
 }

@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.request import Request
 
+from bboom_test.settings import AUTHENTICATION_COOKIE_NAME
 from posts.models import Post
 from posts.serializers import PostSerializer
 from users.forms import PostForm
@@ -44,6 +45,7 @@ class UsersViewSet(viewsets.ReadOnlyModelViewSet):
     def user_cabinet(self, request: Request) -> Response:
         add_post_form = PostForm(request.POST)
         return render(request, 'user_cabinet.html', context={
-                'add_post_form': add_post_form
+                'add_post_form': add_post_form,
+                'user_token': request.COOKIES.get(AUTHENTICATION_COOKIE_NAME)
             }
         )

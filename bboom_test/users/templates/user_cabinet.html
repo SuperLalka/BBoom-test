@@ -22,7 +22,7 @@
     function submitForm(e) {
         e.preventDefault();
 
-        var user_token = "{{request.user.token}}";
+        var user_token = "{{user_token}}";
         var myform = document.getElementById("add-post-form");
         var formData = new FormData(myform);
 

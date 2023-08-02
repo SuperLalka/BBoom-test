@@ -4,11 +4,11 @@ from django.views.generic import RedirectView
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework import permissions, routers
+from rest_framework import routers
 
 from posts.views import PostsViewSet
+from users.views.auth import CustomTokenObtainPairView, CustomLogoutView
 from users.views.users import UsersViewSet
-from users.views.auth import CustomAuthToken
 
 router = routers.DefaultRouter()
 router.register(r'posts', PostsViewSet, basename='posts')
@@ -18,9 +18,10 @@ router.register(r'users', UsersViewSet, basename='users')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include((router.urls, 'apis'), namespace='apis')),
-    path('token/', CustomAuthToken.as_view(), name='token'),
+    path('login/', CustomTokenObtainPairView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
 
-    path('', RedirectView.as_view(pattern_name='users', permanent=False)),
+    path('', RedirectView.as_view(pattern_name='apis:users-list', permanent=False)),
 ]
 
 
@@ -34,7 +35,6 @@ schema_view = get_schema_view(
       license=openapi.License(name="BSD License"),
    ),
    public=True,
-   permission_classes=(permissions.AllowAny,),
 )
 
 redoc_urlpatterns = [

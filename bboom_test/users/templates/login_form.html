@@ -1,0 +1,14 @@
+<h2>Авторизация</h2>
+<div class="p-4">
+    <form id="login-form" action="{% url 'login' %}" method="post">
+        <div class="form-group">
+            <label for="login-form_name">Name:</label>
+            <input type="text" name="name" class="form-control" id="login-form_name" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+            <label for="login-form_email">Email address:</label>
+            <input type="email" name="email" class="form-control" id="login-form_email" placeholder="Your email">
+        </div>
+        <button type="submit" class="btn btn-primary">Залогиниться</button>
+    </form>
+</div>
