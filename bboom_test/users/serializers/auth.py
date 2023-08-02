@@ -16,18 +16,17 @@ class CustomAuthTokenSerializer(serializers.Serializer):
     )
 
     def validate(self, attrs):
-        username = attrs.get('name')
+        name = attrs.get('name')
         email = attrs.get('email')
 
-        if username and email:
+        if name and email:
             user = authenticate(
                 request=self.context.get('request'),
-                username=username, email=email
+                name=name, email=email
             )
             if not user:
                 raise serializers.ValidationError(
-                    f"{username} {email}",
-                    # 'Authorization failed, please check your credentials.',
+                    'Authorization failed, please check your credentials.',
                     code='authorization'
                 )
         else:

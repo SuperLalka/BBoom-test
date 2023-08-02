@@ -30,6 +30,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
@@ -84,7 +85,6 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#authentication-backends
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
     'users.backends.CustomModelBackend',
 ]
 
